@@ -1,7 +1,10 @@
-const Exchange = ({formJson},{rate}) => {
+// import { currencies } from './Select';
+
+
+const Exchange = () => {
     return (
         <div className="results">
-            <p className="rate">{rate}</p>
+            <p className="rate">"Rates"</p>            
         </div>
     )
 };
