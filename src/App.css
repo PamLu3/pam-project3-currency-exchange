@@ -1,6 +1,6 @@
 body {
   background: white;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 20px);
   font-family: sans-serif;
   font-size: 20px;
 }
@@ -29,8 +29,9 @@ main {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32), 0 10px 20px rgba(0, 0, 0, 0.28);
 }
 
-
-input[type="text"] {
+/* [type="option"]  */
+option 
+{
   background: linear-gradient(350deg, rgba(255, 238, 21, 0.6) 0%, rgba(242, 69, 42, 0.6) 100%);
   padding: 13px 15px;
   margin: 0 20px 0 12px;
@@ -38,7 +39,7 @@ input[type="text"] {
 
 }
 
-input[type="text"]:focus {
+option:focus {
   background: linear-gradient(350deg, rgba(255, 238, 21, 1) 0%, rgba(242, 69, 42, 1) 100%);
 }
 

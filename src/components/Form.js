@@ -27,18 +27,14 @@ const Form = ({ onSubmit }) => {
         } catch (error) {
             console.log(error);
         }
-    };
-
-
-   
-    
+    };    
     
     return(
         <>
             <form onSubmit={fetchCurrencyRate}>
 
-                <Select name="fromCurrency" />
-                <Select name="toCurrency" />
+                <Select name="fromCurrency" />;
+                <Select name="toCurrency" />;
                 <button type="submit">Submit</button>
 
             </form>
