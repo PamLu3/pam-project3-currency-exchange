@@ -1,10 +1,10 @@
 // import { currencies } from './Select';
 
 
-const Exchange = () => {
+const Exchange = (props) => {
     return (
         <div className="results">
-            <p className="rate">"Rates"</p>            
+            <p className="rate">{props.rate}  as on the date: {props.date} </p>            
         </div>
     )
 };

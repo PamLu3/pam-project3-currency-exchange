@@ -1,13 +1,30 @@
-const Select = (props) => {
-    
-    const currencies = [{key: "cad", name: "Canadian dollar" }, {key: "usd", name: "United States dollar" }, {key:"cny", name:"Chinese Yuan"}, {key:"jpy", name: "Japanese Yen"}, {key:"eur", name:"Euro"}, {key:"gbp", name:"British Pound"} ];
+import { useEffect, useState, useId } from "react";
+import axios from "axios";
 
+const Select = (props) => {
+    const [currencies, setCurrencies] = useState(["", ""]);
+    const [temp, setTemp] = useState(["", ""]);
+          
+    useEffect(() => {
+        axios({
+            url:'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json' 
+        }).then((response) => {
+            const apiData = Object.entries(response.data);
+            setCurrencies(apiData); 
+        });
+    },[]);
+
+    const handleUserChoice = (e) => {
+        setTemp(e.target.value);
+    }
+
+    
     return(
         <>
-            <label htmlFor={props.name}>{props.name}: </label>
-            <select name={props.name}>
-                {currencies.map((currency) => {
-                    return <option key={currency.key} value={currency.key}>{currency.name}</option>
+            <label htmlFor={temp}>{props.name==="fromCurrency"? "From ": "To "}: </label>
+            <select name={props.name} id={temp} value={temp} onChange={handleUserChoice}>
+                {currencies.map((entry) => {
+                    return <option key={entry.id} value={entry[0] } >{entry[1]}</option>
                 })}   
             </select>
         </>

@@ -1,57 +1,51 @@
 // Form.js
-
+import { useState } from "react";
 import Select from "./Select";
-import axios from 'axios';
-import { useEffect, useState } from "react";
+import Exchange from "./Exchange";
+//import currencies from "./Select";
 
-const Form = () => {
-    const [inputs, setInputs] = useState({ fromCurrency: 'cad', toCurrency: 'cad' });
-    const [rates, setRates] = useState(1);
+const Form = ({ onSubmit }) => {
 
-    const handleSubmit = (e) => {
+    const [currencyRate, setCurrencyRate] = useState(1);
+    const [date, setDate] = useState("")
 
+    const fetchCurrencyRate = async (e) => {
+        const currencyFrom =e.target[0].id;
+        const currencyTo=e.target[1].id;
         e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        // fetch('/some-api', { method: form.method, body: formData});
-        // console.log(new URLSearchParams(formData).toString());
-        const formJson = Object.fromEntries(formData.entries());
-
-        setInputs(formJson);
+        const url = new URL(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currencyFrom}/${currencyTo}.json`);
+        url.search = new URLSearchParams({
+            currencyCode: currencyFrom,   // currencyFrom,
+            currencyCode: currencyTo,   // currencyTo,
+        });
+        try {
+            const response = await fetch(url);
+            const apiData = await response.json();
+           
+            setCurrencyRate(apiData[currencyTo]);
+            setDate(apiData.date);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
-    console.log(inputs);
-    useEffect(() => {
-        axios({
-            url: `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${inputs.fromCurrency}/${inputs.toCurrency}.json`,
 
-        }).then((res) => {
-            console.log(res.data);
-            setRates(res.data);
-        })
-    }, [inputs])
    
+    
+    
     return(
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={fetchCurrencyRate}>
 
                 <Select name="fromCurrency" />
                 <Select name="toCurrency" />
-
-                {/* <label>Enter Amount:
-                <input
-                    type="number"
-                    name="amount"
-                    value={inputs.amount}
-                    
-                />
-            </label> */}
-
                 <button type="submit">Submit</button>
+
             </form>
-            
-        </>
-        
+
+            <Exchange date={date} rate={currencyRate}/>
+        </>    
+
     );
 };
 
