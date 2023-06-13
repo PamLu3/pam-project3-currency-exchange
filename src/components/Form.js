@@ -2,11 +2,10 @@
 import { useState } from "react";
 import Select from "./Select";
 import Exchange from "./Exchange";
-//import currencies from "./Select";
 
-const Form = ({ onSubmit }) => {
+const Form = () => {
 
-    const [currencyRate, setCurrencyRate] = useState(1);
+    const [currencyRate, setCurrencyRate] = useState(0);
     const [date, setDate] = useState("")
 
     const fetchCurrencyRate = async (e) => {
@@ -21,11 +20,11 @@ const Form = ({ onSubmit }) => {
         try {
             const response = await fetch(url);
             const apiData = await response.json();
-           
             setCurrencyRate(apiData[currencyTo]);
             setDate(apiData.date);
         } catch (error) {
             console.log(error);
+            alert("Please select currency from the dropdown menu.");
         }
     };    
     
@@ -33,8 +32,8 @@ const Form = ({ onSubmit }) => {
         <>
             <form onSubmit={fetchCurrencyRate}>
 
-                <Select name="fromCurrency" />;
-                <Select name="toCurrency" />;
+                <Select name="fromCurrency" />
+                <Select name="toCurrency" />
                 <button type="submit">Submit</button>
 
             </form>

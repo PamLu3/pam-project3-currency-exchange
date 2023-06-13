@@ -17,7 +17,6 @@ const Select = (props) => {
     const handleUserChoice = (e) => {
         setTemp(e.target.value);
     }
-
     
     return(
         <>
