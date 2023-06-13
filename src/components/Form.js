@@ -14,8 +14,8 @@ const Form = () => {
         e.preventDefault();
         const url = new URL(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currencyFrom}/${currencyTo}.json`);
         url.search = new URLSearchParams({
-            currencyCode: currencyFrom,   // currencyFrom,
-            currencyCode: currencyTo,   // currencyTo,
+            currencyCode1: currencyFrom,   // currencyFrom,
+            currencyCode2: currencyTo,   // currencyTo,
         });
         try {
             const response = await fetch(url);
